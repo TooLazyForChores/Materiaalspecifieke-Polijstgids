@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiaalspecifieke Polijstgids</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #003399;
+            --secondary-color: #e6eeff;
+            --accent-light: #f0f4f9;
+            --text-dark: #333333;
+            --text-medium: #555555;
+            --border-color: #dddddd;
+            --highlight: #fffde7;
+            --success: #e8f5e9;
+            --warning: #fff8e1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            padding: 0;
+            margin: 0;
+            /* Aanpassing voor iframe/Rise compatibiliteit */
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0;
+            /* Aanpassing voor iframe/Rise compatibiliteit */
+            width: 100%;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .intro {
+            background-color: var(--accent-light);
+            padding: 30px 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .intro p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .materials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+        
+        .material-category {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .materials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .material-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .material-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            padding: 15px 20px;
+            color: white;
+            position: relative;
+        }
+        
+        .card-header h3 {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        
+        .hardness-badge {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .property-list {
+            list-style: none;
+        }
+        
+        .property-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .property-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 7px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+        
+        .property-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 3px;
+        }
+        
+        .tips-warnings {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--warning);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .tips-warnings h4 {
+            margin-bottom: 8px;
+            color: #ff8f00;
+        }
+        
+        .best-practices {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: var(--success);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        
+        .best-practices h4 {
+            margin-bottom: 8px;
+            color: #2e7d32;
+        }
+        
+        .legend {
+            margin: 30px 40px;
+            padding: 20px;
+            background-color: var(--highlight);
+            border-radius: 8px;
+        }
+        
+        .legend h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .legend-icon {
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .ra-scale {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .scale-label {
+            width: 100px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .scale-visual {
+            flex-grow: 1;
+            height: 20px;
+            background: linear-gradient(to right, #4caf50, #ffc107, #f44336);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .scale-markers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.8em;
+            color: var(--text-medium);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .print-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .print-button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Speciale stijlen voor Rise-integratie */
+        .rise-container {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* Aangepast voor betere mobiele weergave binnen Rise */
+        @media (max-width: 768px) {
+            .materials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .materials-grid {
+                padding: 20px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            /* Extra kleine schermen in Rise */
+            .property-list li {
+                font-size: 0.9em;
+            }
+        }
+        
+        /* Rise-compatibiliteit hoogteregelaar - voorkomt scrollproblemen */
+        .rise-height-controller {
+            min-height: 3200px; /* Schatting van totale inhoudshoogte */
+            height: auto;
+            overflow: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="rise-container rise-height-controller">
+        <div class="container">
+            <header>
+                <h1>Materiaalspecifieke Polijstgids</h1>
+                <div class="subtitle">Optimaliseer uw polijstproces met de juiste materiaalkennis</div>
+            </header>
+            
+            <section class="intro">
+                <p>Deze gids biedt gedetailleerde informatie over polijsttechnieken voor verschillende materialen. Per materiaalsoort worden de specifieke eigenschappen, aanbevolen polijstmiddelen, typische uitdagingen en gewenste oppervlakteruwheid (Ra-waarde) beschreven. Gebruik deze referentie om de meest efficiënte polijstprocedures te bepalen en optimale resultaten te bereiken.</p>
+            </section>
+            
+            <section class="materials-grid">
+                <div class="material-category">
+                    <h2 class="category-title">Metalen</h2>
+                    <div class="materials-container">
+                        <div class="material-card">
+                            <div class="card-header">
+                                <h3>Staal en roestvast staal</h3>
+                                <span class="hardness-badge">5.5-6.5 Mohs</span>
+                            </div>
+                            <div class="card-body">
+                                <ul class="property-list">
+                                    <li>
+                                        <span class="property-name">Aanbevolen pasta's</span>
+                                        Aluminiumoxide (medium tot fijn)
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Aanbevolen pads</span>
+                                        Medium tot hard schuim
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Typische uitdagingen</span>
+                                        Hitteverkleuring, groefvorming
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Gewenste Ra-waarde</span>
+                                        0.05-0.2μm
+                                    </li>
+                                </ul>
+                                <div class="tips-warnings">
+                                    <h4>Let op</h4>
+                                    <p>Voorkom oververhitting door regelmatige pauzes in te lassen en voldoende koelmiddel te gebruiken. Bij roestvast staal kan hitteverkleuring leiden tot oxidatie die moeilijk te verwijderen is.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="card-header">
+                                <h3>Aluminium en legeringen</h3>
+                                <span class="hardness-badge">2.5-3 Mohs</span>
+                            </div>
+                            <div class="card-body">
+                                <ul class="property-list">
+                                    <li>
+                                        <span class="property-name">Aanbevolen pasta's</span>
+                                        Aluminiumoxide (fijn tot extra fijn)
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Aanbevolen pads</span>
+                                        Zacht tot medium schuim
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Typische uitdagingen</span>
+                                        Uitsmeren, verstikking van pad
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Gewenste Ra-waarde</span>
+                                        0.1-0.4μm
+                                    </li>
+                                </ul>
+                                <div class="best-practices">
+                                    <h4>Best practices</h4>
+                                    <p>Gebruik lage druk en regelmatige reiniging van polijstpads om verstikking te voorkomen. Bij zachtere aluminiumlegeringen is een graduele overgang van medium naar fijn polijsten aanbevolen.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="card-header">
+                                <h3>Koper, messing en brons</h3>
+                                <span class="hardness-badge">3-4 Mohs</span>
+                            </div>
+                            <div class="card-body">
+                                <ul class="property-list">
+                                    <li>
+                                        <span class="property-name">Aanbevolen pasta's</span>
+                                        Siliciumcarbide (fijn), rode polijstpasta
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Aanbevolen pads</span>
+                                        Medium dichtheid wol of schuim
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Typische uitdagingen</span>
+                                        Oxidatie, verfkleuringen
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Gewenste Ra-waarde</span>
+                                        0.05-0.2μm
+                                    </li>
+                                </ul>
+                                <div class="tips-warnings">
+                                    <h4>Let op</h4>
+                                    <p>Oxidatie treedt snel op bij kopergebaseerde materialen. Overweeg een beschermende coating direct na het polijsten aan te brengen. Vermijd contact met zuurstofrijke stoffen tijdens het polijsten.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="material-category">
+                    <h2 class="category-title">Kunststoffen en composieten</h2>
+                    <div class="materials-container">
+                        <div class="material-card">
+                            <div class="card-header">
+                                <h3>Thermoplastische kunststoffen</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="property-list">
+                                    <li>
+                                        <span class="property-name">Aanbevolen pasta's</span>
+                                        Zeer fijne aluminiumoxide, niet-vette compounds
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Aanbevolen pads</span>
+                                        Zeer zacht schuim of microvezel
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Typische uitdagingen</span>
+                                        Thermische vervorming, statische elektriciteit
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Gewenste Ra-waarde</span>
+                                        0.01-0.1μm
+                                    </li>
+                                </ul>
+                                <div class="tips-warnings">
+                                    <h4>Let op</h4>
+                                    <p>Voorkom oververhitting door lage toerentallen en weinig druk te gebruiken. Antistatische maatregelen zijn aanbevolen om stofaanhechting te minimaliseren. Let op dat sommige oplosmiddelen crazing (haarscheurtjes) kunnen veroorzaken.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="card-header">
+                                <h3>Thermoharders en composieten</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="property-list">
+                                    <li>
+                                        <span class="property-name">Aanbevolen pasta's</span>
+                                        Siliciumcarbide, aluminiumoxide (medium tot fijn)
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Aanbevolen pads</span>
+                                        Medium tot hard schuim
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Typische uitdagingen</span>
+                                        Delaminatie, blootlegging van vezels
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Gewenste Ra-waarde</span>
+                                        0.2-0.8μm
+                                    </li>
+                                </ul>
+                                <div class="best-practices">
+                                    <h4>Best practices</h4>
+                                    <p>Begin met grovere korrels en werk geleidelijk naar fijnere gradaties. Bij vezelversterkte composieten is een consistent patroon en richting van polijsten belangrijk om vezels gelijkmatig af te werken.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="material-category">
+                    <h2 class="category-title">Keramiek en harde materialen</h2>
+                    <div class="materials-container">
+                        <div class="material-card">
+                            <div class="card-header">
+                                <h3>Technische keramiek</h3>
+                                <span class="hardness-badge">7-9.5 Mohs</span>
+                            </div>
+                            <div class="card-body">
+                                <ul class="property-list">
+                                    <li>
+                                        <span class="property-name">Aanbevolen pasta's</span>
+                                        Diamantpasta's (fijn tot extra fijn)
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Aanbevolen pads</span>
+                                        Harde composietpads, specifieke keramiekpads
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Typische uitdagingen</span>
+                                        Broosheid, moeilijk te verwijderen krassen
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Gewenste Ra-waarde</span>
+                                        0.01-0.1μm
+                                    </li>
+                                </ul>
+                                <div class="tips-warnings">
+                                    <h4>Let op</h4>
+                                    <p>Keramische materialen zijn zeer bros en kunnen gemakkelijk beschadigen bij overmatige druk. Gebruik consistente, lichte druk en veel koeling. Werk systematisch van grof naar extreem fijn voor optimale resultaten.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="material-card">
+                            <div class="card-header">
+                                <h3>Hardmetalen en gereedschapsstaal</h3>
+                                <span class="hardness-badge">8-9 Mohs</span>
+                            </div>
+                            <div class="card-body">
+                                <ul class="property-list">
+                                    <li>
+                                        <span class="property-name">Aanbevolen pasta's</span>
+                                        Diamant compounds, CBN pasta's
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Aanbevolen pads</span>
+                                        Harde composietpads met koeling
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Typische uitdagingen</span>
+                                        Hitteophoping, lange procestijden
+                                    </li>
+                                    <li>
+                                        <span class="property-name">Gewenste Ra-waarde</span>
+                                        0.05-0.2μm
+                                    </li>
+                                </ul>
+                                <div class="best-practices">
+                                    <h4>Best practices</h4>
+                                    <p>Neem voldoende tijd voor elke polijststap en vermijd temperatuurschommelingen. Het gebruik van een koelmiddel is essentieel om hitteophoping te voorkomen die de materiaaleigenschappen kan beïnvloeden.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="legend">
+                <h3>Ra-waarden begrijpen</h3>
+                <p>De Ra-waarde (Roughness average) is een maat voor de oppervlakteruwheid, uitgedrukt in micrometer (μm). Hoe lager de Ra-waarde, hoe gladder het oppervlak.</p>
+                
+                <div class="ra-scale">
+                    <div class="scale-label">Ra-waarde</div>
+                    <div class="scale-visual"></div>
+                </div>
+                <div class="scale-markers">
+                    <span>0.01μm (Spiegelglad)</span>
+                    <span>0.4μm (Medium)</span>
+                    <span>0.8μm+ (Ruw)</span>
+                </div>
+                
+                <p style="margin-top: 20px;">Voor precisie-toepassingen zoals optische componenten zijn zeer lage Ra-waarden vereist (0.01-0.05μm), terwijl voor algemene industriële toepassingen waarden tussen 0.2-0.4μm vaak voldoende zijn.</p>
+            </section>
+            
+            <footer>
+                <p>© 2025 - Materiaalspecifieke Polijstgids | Gebruik deze informatie als uitgangspunt en pas aan naar specifieke projectvereisten en materiaalspecificaties.</p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Script om hoogte aan te passen aan Rise container -->
+    <script>
+        // Functie om berichtgrootte aan te passen aan Rise
+        function updateRiseHeight() {
+            const totalHeight = document.body.scrollHeight;
+            
+            // Bericht aan Rise over de hoogte (als in iframe)
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'resize',
+                    height: totalHeight
+                }, '*');
+            }
+            
+            // Extra backup voor Rise-compatibiliteit
+            document.querySelector('.rise-height-controller').style.minHeight = totalHeight + 'px';
+        }
+        
+        // Direct uitvoeren en bij laden van het venster
+        window.addEventListener('load', updateRiseHeight);
+        updateRiseHeight();
+        
+        // Ook uitvoeren bij venstergrootte-wijzigingen
+        window.addEventListener('resize', updateRiseHeight);
+    </script>
+</body>
+</html>
